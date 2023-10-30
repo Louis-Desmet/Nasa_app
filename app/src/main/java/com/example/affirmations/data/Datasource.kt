@@ -19,7 +19,7 @@ import com.example.affirmations.R
 import com.example.affirmations.model.APOD
 
 class Datasource() {
-    fun loadAffirmations(): List<APOD> {
+    fun loadAPODS(): List<APOD> {
         return listOf<APOD>(
             APOD(R.string.affirmation1, R.drawable.nasa1),
             APOD(R.string.affirmation2, R.drawable.image2),

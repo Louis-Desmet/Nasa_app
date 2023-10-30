@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -38,6 +39,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.affirmations.model.APOD
 import com.example.affirmations.ui.theme.AffirmationsTheme
+import androidx.compose.foundation.lazy.items
+import com.example.affirmations.data.Datasource
 
 class MainActivity : ComponentActivity() {
 
@@ -59,6 +62,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AffirmationsApp() {
+    APODList(apodList = Datasource().loadAPODS())
 }
 
 @Composable
@@ -88,4 +92,14 @@ fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
 @Composable
 private fun APODCardPreview() {
     APODCard(APOD(R.string.affirmation1, R.drawable.nasa1))
+}
+
+@Composable
+fun APODList(apodList: List<APOD>, modifier: Modifier = Modifier) {
+    LazyColumn(modifier = modifier) {
+        items(apodList) { apod ->
+            APODCard(apod = apod, modifier = Modifier.padding(8.dp))
+
+        }
+    }
 }
