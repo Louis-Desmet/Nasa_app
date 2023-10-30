@@ -22,14 +22,10 @@ class Datasource() {
     fun loadAPODS(): List<APOD> {
         return listOf<APOD>(
             APOD(R.string.affirmation1, R.drawable.nasa1),
-            APOD(R.string.affirmation2, R.drawable.image2),
-            APOD(R.string.affirmation3, R.drawable.image3),
-            APOD(R.string.affirmation4, R.drawable.image4),
-            APOD(R.string.affirmation5, R.drawable.image5),
-            APOD(R.string.affirmation6, R.drawable.image6),
-            APOD(R.string.affirmation7, R.drawable.image7),
-            APOD(R.string.affirmation8, R.drawable.image8),
-            APOD(R.string.affirmation9, R.drawable.image9),
-            APOD(R.string.affirmation10, R.drawable.image10))
+            APOD(R.string.affirmation2, R.drawable.nasa2),
+            APOD(R.string.affirmation3, R.drawable.nasa3),
+            APOD(R.string.affirmation4, R.drawable.nasa4),
+            APOD(R.string.affirmation5, R.drawable.nasa5),
+        )
     }
 }

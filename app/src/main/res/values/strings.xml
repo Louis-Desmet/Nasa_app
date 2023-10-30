@@ -14,15 +14,10 @@
   ~ limitations under the License.
   -->
 <resources>
-    <string name="app_name">Affirmations</string>
-    <string name="affirmation1">For northern hemisphere dwellers, Septembers Full Moon was the Harvest Moon. Reflecting warm hues at sunset, it rises behind cypress trees huddled on a hill top in Tuscany, Italy in this telephoto view from September 28.  Famed in festival, story, and song, Harvest Moon is just the traditional name of the full moon nearest the autumnal equinox.  According to lore the name is a fitting one. Despite the diminishing daylight hours as the growing season drew to a close, farmers could harvest crops by the light of a full moon shining on from dusk to dawn. This Harvest Moon was also known to some as a supermoon, a term becoming a traditional name for a full moon near perigee. It was the fourth and final supermoon for 2023.</string>
-    <string name="affirmation2">I believe in myself.</string>
-    <string name="affirmation3">Each day is a new opportunity to grow and be a better version of myself.</string>
-    <string name="affirmation4">Every challenge in my life is an opportunity to learn from.</string>
-    <string name="affirmation5">I have so much to be grateful for.</string>
-    <string name="affirmation6">Good things are always coming into my life.</string>
-    <string name="affirmation7">New opportunities await me at every turn.</string>
-    <string name="affirmation8">I have the courage to follow my heart.</string>
-    <string name="affirmation9">Things will unfold at precisely the right time.</string>
-    <string name="affirmation10">I will be present in all the moments that this day brings.</string>
+    <string name="app_name">Nasa app</string>
+    <string name="affirmation1">A Harvest Moon over Tuscany</string>
+    <string name="affirmation2">The Ghosts of Gamma Cas</string>
+    <string name="affirmation3">Encke and the Tadpoles</string>
+    <string name="affirmation4">Orionids in Taurus</string>
+    <string name="affirmation5">Arp 87: Merging Galaxies from Hubble</string>
 </resources>
