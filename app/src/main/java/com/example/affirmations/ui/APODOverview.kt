@@ -11,6 +11,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -54,9 +56,10 @@ private fun APODCardPreview() {
 }
 
 @Composable
-fun APODList(apodList: List<APOD>, modifier: Modifier = Modifier, viewmodel:APODViewModel = viewModel()) {
+fun APODList( modifier: Modifier = Modifier, viewmodel:APODViewModel = viewModel()) {
+    val APODState by viewmodel.uiState.collectAsState()
     LazyColumn(modifier = modifier) {
-        items(apodList) { apod ->
+        items(APODState.apods) { apod ->
             APODCard(apod = apod, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding)))
 
         }

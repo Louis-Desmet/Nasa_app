@@ -47,6 +47,7 @@ import com.example.affirmations.ui.APODViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.affirmations.data.Datasource
 import com.example.affirmations.ui.APODList
+import com.example.affirmations.ui.APODState
 
 
 class MainActivity : ComponentActivity() {
@@ -70,9 +71,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NasaApp(viewModel: APODViewModel = viewModel()) {
 
-    val apodState by viewModel.uiState.collectAsState()
-    //val apodList by viewModel.collectAsState()
+    APODList()
 
-
-    APODList(apodList = Datasource().loadAPODS())
 }
