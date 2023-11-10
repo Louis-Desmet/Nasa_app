@@ -65,15 +65,24 @@ android {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2023.05.01"))
-    implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.core:core-ktx:1.10.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    dependencies {
+        // Compose dependencies using the BoM for consistent versions
+        implementation(platform("androidx.compose:compose-bom:2023.05.01"))
+        implementation("androidx.activity:activity-compose:1.7.2")
+        implementation("androidx.compose.material3:material3")
+        implementation("androidx.compose.ui:ui")
+        implementation("androidx.compose.ui:ui-graphics")
+        implementation("androidx.compose.ui:ui-tooling-preview")
+        implementation("androidx.core:core-ktx:1.10.1")
+        implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+        // ViewModel support for Compose
+        implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
 
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
-    debugImplementation("androidx.compose.ui:ui-tooling")
+        // Testing dependencies
+        debugImplementation("androidx.compose.ui:ui-test-manifest")
+        debugImplementation("androidx.compose.ui:ui-tooling")
+    }
+
 }
+

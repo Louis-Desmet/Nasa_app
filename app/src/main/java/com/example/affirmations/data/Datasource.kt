@@ -20,7 +20,7 @@ import com.example.affirmations.model.APOD
 
 class Datasource() {
     fun loadAPODS(): List<APOD> {
-        return listOf<APOD>(
+        return mutableListOf<APOD>(
             APOD(R.string.affirmation1, R.drawable.nasa1),
             APOD(R.string.affirmation2, R.drawable.nasa2),
             APOD(R.string.affirmation3, R.drawable.nasa3),

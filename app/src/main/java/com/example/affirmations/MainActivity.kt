@@ -40,7 +40,14 @@ import androidx.compose.ui.unit.dp
 import com.example.affirmations.model.APOD
 import com.example.affirmations.ui.theme.AffirmationsTheme
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.dimensionResource
+import com.example.affirmations.ui.APODViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.affirmations.data.Datasource
+import com.example.affirmations.ui.APODList
+
 
 class MainActivity : ComponentActivity() {
 
@@ -61,45 +68,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NasaApp() {
+fun NasaApp(viewModel: APODViewModel = viewModel()) {
+
+    val apodState by viewModel.uiState.collectAsState()
+    //val apodList by viewModel.collectAsState()
+
+
     APODList(apodList = Datasource().loadAPODS())
-}
-
-@Composable
-fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
-    Card(modifier = modifier) {
-        Column {
-            Image(
-                painter = painterResource(apod.imageResourceId),
-                contentDescription = stringResource(
-                    apod.stringResourceId
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(194.dp), contentScale = ContentScale.Crop
-            )
-            Text(
-                text = LocalContext.current.getString(apod.stringResourceId),
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.headlineSmall
-            )
-
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun APODCardPreview() {
-    APODCard(APOD(R.string.affirmation1, R.drawable.nasa1))
-}
-
-@Composable
-fun APODList(apodList: List<APOD>, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier) {
-        items(apodList) { apod ->
-            APODCard(apod = apod, modifier = Modifier.padding(8.dp))
-
-        }
-    }
 }
