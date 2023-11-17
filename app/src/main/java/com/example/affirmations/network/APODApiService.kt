@@ -18,7 +18,7 @@ interface APODApiService {
     suspend fun getPhotos() : String
 }
 
-object MarsApi {
+object APODApi {
     val retrofitService : APODApiService by lazy {
         retrofit.create(APODApiService::class.java)
     }
