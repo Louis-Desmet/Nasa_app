@@ -73,4 +73,5 @@ fun NasaApp(viewModel: APODViewModel = viewModel()) {
 
     APODList()
 
+    //bottom bar, nav controller op dit niveau
 }
