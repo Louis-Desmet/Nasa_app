@@ -1,13 +1,20 @@
 package com.example.affirmations.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.affirmations.ui.APODViewModel
 import com.example.affirmations.ui.MarsUiState
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.example.affirmations.R
 
 @Composable
 fun MarsPictureScreen (
@@ -15,7 +22,7 @@ marsUiState: MarsUiState, modifier: Modifier = Modifier
 ) {
 when (marsUiState) {
     is MarsUiState.Loading -> {
-        //laden
+        LoadingScreen(modifier = modifier.fillMaxSize())
     }
     is MarsUiState.Success -> {
     ResultScreen(marsUiState.photos, modifier.fillMaxWidth())
@@ -26,6 +33,16 @@ when (marsUiState) {
     }
 }
 }
+
+@Composable
+fun LoadingScreen(modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier.size(200.dp),
+        painter = painterResource(R.drawable.loading_img),
+        contentDescription = stringResource(R.string.loading)
+    )
+}
+
 @Composable
 fun ResultScreen(photos: String, modifier: Modifier) {
     Box(

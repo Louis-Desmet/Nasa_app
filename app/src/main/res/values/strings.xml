@@ -20,4 +20,5 @@
     <string name="affirmation3">Encke and the Tadpoles</string>
     <string name="affirmation4">Orionids in Taurus</string>
     <string name="affirmation5">Arp 87: Merging Galaxies from Hubble</string>
+    <string name="loading">Loading</string>
 </resources>
