@@ -55,7 +55,7 @@ class APODViewModel : ViewModel() {
             marsUiState = try {
                 val listResult = NasaApi.retrofitService.getPhotos()
                 MarsUiState.Success(
-                    "Success: ${listResult} Mars photos retrieved"
+                    "Success: ${listResult.size} Mars photos retrieved"
                 )
             } catch (e: IOException) {
                 MarsUiState.Error
