@@ -18,6 +18,7 @@ package com.example.affirmations.data
 import com.example.affirmations.R
 import com.example.affirmations.model.APOD
 
+//Local datasource
 class Datasource() {
     fun loadAPODS(): List<APOD> {
         return mutableListOf<APOD>(

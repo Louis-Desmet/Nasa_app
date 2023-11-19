@@ -1,11 +1,13 @@
 package com.example.affirmations.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.affirmations.ui.APODViewModel
 import com.example.affirmations.ui.MarsUiState
+import androidx.compose.material3.Text
 
 @Composable
 fun MarsPictureScreen (
@@ -16,14 +18,20 @@ when (marsUiState) {
         //laden
     }
     is MarsUiState.Success -> {
-        Text(text = marsUiState.photos)
+    ResultScreen(marsUiState.photos, modifier.fillMaxWidth())
+
     }
     is  MarsUiState.Error -> {
         //error
     }
 }
 }
-
-class ResultScreen(photos: Any, modifier: Modifier) {
-
+@Composable
+fun ResultScreen(photos: String, modifier: Modifier) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+    ) {
+        Text(text = photos)
+    }
 }
