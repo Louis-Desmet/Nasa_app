@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.affirmations.data.Datasource
+import com.example.affirmations.data.NetworkMarsPhotosRepository
 import com.example.affirmations.network.MarsApiService
 import com.example.affirmations.network.NasaApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,7 +54,8 @@ class APODViewModel : ViewModel() {
         viewModelScope.launch {
             marsUiState = MarsUiState.Loading
             marsUiState = try {
-                val listResult = NasaApi.retrofitService.getPhotos()
+                val marsPhotosRepository = NetworkMarsPhotosRepository()
+                val listResult = marsPhotosRepository.getMarsPhotos()
                 MarsUiState.Success(
                     "Success: ${listResult.size} Mars photos retrieved"
                 )
