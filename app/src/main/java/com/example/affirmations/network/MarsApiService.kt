@@ -12,15 +12,15 @@ private val retrofit =
     Retrofit.Builder().addConverterFactory(ScalarsConverterFactory.create()).baseUrl(BASE_URL)
         .build()
 
-interface APODApiService {
+interface MarsApiService {
     //url/photos ophalen
     @GET("photos")
     suspend fun getPhotos() : String
 }
 
 object APODApi {
-    val retrofitService : APODApiService by lazy {
-        retrofit.create(APODApiService::class.java)
+    val retrofitService : MarsApiService by lazy {
+        retrofit.create(MarsApiService::class.java)
     }
 }
 

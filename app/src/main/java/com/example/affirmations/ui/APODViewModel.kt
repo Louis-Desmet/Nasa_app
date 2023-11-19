@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.affirmations.data.Datasource
 import com.example.affirmations.network.APODApi
-import com.example.affirmations.network.APODApiService
+import com.example.affirmations.network.MarsApiService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,6 +37,7 @@ class APODViewModel : ViewModel() {
         getMarsImages()
     }
 
+    //Function to load the apods from the mockData
     private fun loadAPODs() {
         viewModelScope.launch {
             // Emit loading state
@@ -47,6 +48,7 @@ class APODViewModel : ViewModel() {
         }
     }
 
+    //Function to get the mars images (with API call)
     private fun getMarsImages() {
         viewModelScope.launch {
             marsUiState = MarsUiState.Loading
