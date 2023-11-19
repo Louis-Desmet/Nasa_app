@@ -5,20 +5,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.affirmations.ui.APODViewModel
-import com.example.affirmations.ui.APODuiState
+import com.example.affirmations.ui.MarsUiState
 
 @Composable
 fun MarsPictureScreen (
-apodUiState: APODuiState, modifier: Modifier = Modifier
+marsUiState: MarsUiState, modifier: Modifier = Modifier
 ) {
-when (apodUiState) {
-    is APODuiState.Loading -> {
+when (marsUiState) {
+    is MarsUiState.Loading -> {
         //laden
     }
-    is APODuiState.Success -> {
-        Text(text = apodUiState.photos)
+    is MarsUiState.Success -> {
+        Text(text = marsUiState.photos)
     }
-    is  APODuiState.Error -> {
+    is  MarsUiState.Error -> {
         //error
     }
 }

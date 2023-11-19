@@ -74,7 +74,7 @@ fun NasaApp(viewModel: APODViewModel = viewModel()) {
 
     //APODList()
 
-    MarsPictureScreen(apodUiState = viewModel.apodUiState)
+    MarsPictureScreen(marsUiState = viewModel.marsUiState)
 
 
     //bottom bar, nav controller op dit niveau

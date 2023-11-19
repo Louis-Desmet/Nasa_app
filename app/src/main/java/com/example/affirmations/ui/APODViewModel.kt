@@ -15,10 +15,10 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
-sealed interface APODuiState {
-    data class Success(val photos: String) : APODuiState
-    object Error : APODuiState
-    object Loading : APODuiState
+sealed interface MarsUiState {
+    data class Success(val photos: String) : MarsUiState
+    object Error : MarsUiState
+    object Loading : MarsUiState
 }
 
 class APODViewModel : ViewModel() {
@@ -27,14 +27,14 @@ class APODViewModel : ViewModel() {
     val uiState: StateFlow<APODState> = _uiState.asStateFlow()
     //State for the web service
 
-    var apodUiState: APODuiState by mutableStateOf(APODuiState.Loading)
+    var marsUiState: MarsUiState by mutableStateOf(MarsUiState.Loading)
         private set
 
 
 
     init {
         loadAPODs()
-        getAPODImages()
+        getMarsImages()
     }
 
     private fun loadAPODs() {
@@ -47,18 +47,18 @@ class APODViewModel : ViewModel() {
         }
     }
 
-    private fun getAPODImages() {
+    private fun getMarsImages() {
         viewModelScope.launch {
-            apodUiState = APODuiState.Loading
-            apodUiState = try {
+            marsUiState = MarsUiState.Loading
+            marsUiState = try {
                 val listResult = APODApi.retrofitService.getPhotos()
-                APODuiState.Success(
+                MarsUiState.Success(
                     "Success: ${listResult} Mars photos retrieved"
                 )
             } catch (e: IOException) {
-                APODuiState.Error
+                MarsUiState.Error
             } catch (e: HttpException) {
-                APODuiState.Error
+                MarsUiState.Error
             }
         }
 
