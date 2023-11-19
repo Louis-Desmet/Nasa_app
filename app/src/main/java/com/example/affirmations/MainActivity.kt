@@ -62,7 +62,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NasaApp()
+
+                    val apodView: APODViewModel =
+                        viewModel(factory = APODViewModel.Factory)
+                NasaApp()
                 }
             }
         }

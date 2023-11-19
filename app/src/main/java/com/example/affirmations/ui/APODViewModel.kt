@@ -4,11 +4,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.affirmations.NasaApplication
 import com.example.affirmations.data.Datasource
-import com.example.affirmations.data.NetworkMarsPhotosRepository
-import com.example.affirmations.network.MarsApiService
-import com.example.affirmations.network.NasaApi
+import com.example.affirmations.data.MarsPhotoRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,13 +19,14 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
+
 sealed interface MarsUiState {
     data class Success(val photos: String) : MarsUiState
     object Error : MarsUiState
     object Loading : MarsUiState
 }
 
-class APODViewModel : ViewModel() {
+class APODViewModel(private val marsPhotoRepository: MarsPhotoRepository) : ViewModel() {
     // Initialize your data here
     private val _uiState = MutableStateFlow(APODState())
     val uiState: StateFlow<APODState> = _uiState.asStateFlow()
@@ -54,8 +58,8 @@ class APODViewModel : ViewModel() {
         viewModelScope.launch {
             marsUiState = MarsUiState.Loading
             marsUiState = try {
-                val marsPhotosRepository = NetworkMarsPhotosRepository()
-                val listResult = marsPhotosRepository.getMarsPhotos()
+                val listResult = marsPhotoRepository.getMarsPhotos()
+
                 MarsUiState.Success(
                     "Success: ${listResult.size} Mars photos retrieved"
                 )
@@ -68,5 +72,16 @@ class APODViewModel : ViewModel() {
 
     }
 
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = (this[APPLICATION_KEY] as NasaApplication)
+                val marsPhotoRepository = application.container.marsPhotoRepository
+                APODViewModel(marsPhotoRepository = marsPhotoRepository)
+            }
+        }
+    }
 
 }
+
+
