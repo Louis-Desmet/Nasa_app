@@ -33,6 +33,7 @@ class APODViewModel : ViewModel() {
 
 
     init {
+        loadAPODs()
         getAPODImages()
     }
 
