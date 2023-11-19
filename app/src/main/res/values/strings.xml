@@ -21,4 +21,5 @@
     <string name="affirmation4">Orionids in Taurus</string>
     <string name="affirmation5">Arp 87: Merging Galaxies from Hubble</string>
     <string name="loading">Loading</string>
+    <string name="loading_failed">Failed to load</string>
 </resources>
