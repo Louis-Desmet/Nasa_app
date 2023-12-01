@@ -12,6 +12,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.affirmations.NasaApplication
 import com.example.affirmations.data.Datasource
 import com.example.affirmations.data.MarsPhotoRepository
+import com.example.affirmations.model.MarsPhoto
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +22,7 @@ import java.io.IOException
 
 
 sealed interface MarsUiState {
-    data class Success(val photos: String) : MarsUiState
+    data class Success(val photos: MarsPhoto) : MarsUiState
     object Error : MarsUiState
     object Loading : MarsUiState
 }
@@ -58,11 +59,8 @@ class APODViewModel(private val marsPhotoRepository: MarsPhotoRepository) : View
         viewModelScope.launch {
             marsUiState = MarsUiState.Loading
             marsUiState = try {
-                val listResult = marsPhotoRepository.getMarsPhotos()
+                MarsUiState.Success(marsPhotoRepository.getMarsPhotos()[0])
 
-                MarsUiState.Success(
-                    "Success: ${listResult.size} Mars photos retrieved"
-                )
             } catch (e: IOException) {
                 MarsUiState.Error
             } catch (e: HttpException) {
