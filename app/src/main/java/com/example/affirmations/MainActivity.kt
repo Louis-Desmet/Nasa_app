@@ -18,6 +18,7 @@ package com.example.affirmations
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,12 +41,21 @@ import androidx.compose.ui.unit.dp
 import com.example.affirmations.model.APOD
 import com.example.affirmations.ui.theme.AffirmationsTheme
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import com.example.affirmations.ui.APODViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.affirmations.data.Datasource
+import com.example.affirmations.screens.HelloWorldScreen
 import com.example.affirmations.screens.MarsPictureScreen
 import com.example.affirmations.ui.APODList
 import com.example.affirmations.ui.APODState
@@ -57,18 +67,44 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AffirmationsTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-
-                    val apodView: APODViewModel =
-                        viewModel(factory = APODViewModel.Factory)
-                NasaApp()
+                val navController = rememberNavController()
+                val viewModel: APODViewModel by viewModels { APODViewModel.Factory }
+                Scaffold(
+                    bottomBar = { BottomBar(navController) }
+                ) { innerPadding ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = Destinations.APODScreen,
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        composable(Destinations.MarsPictureScreen) {
+                            MarsPictureScreen(
+                            marsUiState = viewModel.marsUiState, retryAction = viewModel::getMarsImages
+                            )
+                        }
+                        composable(Destinations.APODScreen) {
+                            HelloWorldScreen() // Pass necessary parameters
+                        }
+                    }
                 }
             }
         }
+    }
+}
+@Composable
+fun BottomBar(navController: NavController) {
+    BottomAppBar {
+        NavigationBarItem(
+            icon = { Icon(Icons.Filled.Star, contentDescription = "APOD") },
+            selected = navController.currentDestination?.route == Destinations.APODScreen,
+            onClick = { navController.navigate(Destinations.APODScreen) }
+        )
+        NavigationBarItem(
+            icon = { Icon(Icons.Filled.Home, contentDescription = "Mars Pictures") },
+            selected = navController.currentDestination?.route == Destinations.MarsPictureScreen,
+            onClick = { navController.navigate(Destinations.MarsPictureScreen) }
+        )
+
     }
 }
 
