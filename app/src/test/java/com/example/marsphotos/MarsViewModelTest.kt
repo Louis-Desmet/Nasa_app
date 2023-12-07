@@ -17,7 +17,7 @@ class MarsViewModelTest {
     fun marsViewModel_getMarsPhotos_verifyMarsUiStateSuccess() = runTest{
         val marsViewModel = APODViewModel(marsPhotoRepository = FakeNetworkMarsPhotosRepository()
         )
-        assertEquals(MarsUiState.Success("Success: ${FakeDataSource.photosList.size} Mars " + "photos retrieved"),
+        assertEquals(MarsUiState.Success(FakeDataSource.photosList),
             marsViewModel.marsUiState)
     }
 }
