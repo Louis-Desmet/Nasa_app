@@ -28,7 +28,6 @@ import com.example.affirmations.R
 import com.example.affirmations.model.APOD
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.affirmations.ui.APODCardPreview
 import com.example.affirmations.ui.APODViewModel
 
 @Composable

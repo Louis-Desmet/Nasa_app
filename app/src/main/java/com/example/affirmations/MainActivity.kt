@@ -58,7 +58,6 @@ import com.example.affirmations.data.Datasource
 import com.example.affirmations.screens.APODCardPreview
 import com.example.affirmations.screens.HelloWorldScreen
 import com.example.affirmations.screens.MarsPictureScreen
-import com.example.affirmations.ui.APODList
 import com.example.affirmations.ui.APODState
 
 
