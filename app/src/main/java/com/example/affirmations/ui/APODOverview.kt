@@ -49,10 +49,10 @@ fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
     }
 }
 
-@Preview
+
 @Composable
-private fun APODCardPreview() {
-    //APODCard(APOD(R.string.affirmation1, R.drawable.nasa1))
+fun APODCardPreview() {
+    APODCard(APOD(R.string.affirmation1, R.drawable.nasa1))
 }
 
 @Composable

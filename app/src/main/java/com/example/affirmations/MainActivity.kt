@@ -55,6 +55,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.affirmations.data.Datasource
+import com.example.affirmations.screens.APODCardPreview
 import com.example.affirmations.screens.HelloWorldScreen
 import com.example.affirmations.screens.MarsPictureScreen
 import com.example.affirmations.ui.APODList
@@ -83,7 +84,8 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable(Destinations.APODScreen) {
-                            HelloWorldScreen() // Pass necessary parameters
+                            //HelloWorldScreen()
+                            APODCardPreview()
                         }
                     }
                 }
