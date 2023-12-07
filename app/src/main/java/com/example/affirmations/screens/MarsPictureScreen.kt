@@ -71,7 +71,6 @@ fun PhotosGridScreen(photos: List<MarsPhoto>, modifier: Modifier = Modifier) {
             )
         }
     }
-
 }
 
 @Composable
