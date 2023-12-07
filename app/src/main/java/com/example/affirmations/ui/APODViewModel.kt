@@ -55,7 +55,7 @@ class APODViewModel(private val marsPhotoRepository: MarsPhotoRepository) : View
     }
 
     //Function to get the mars images (with API call)
-    private fun getMarsImages() {
+    fun getMarsImages() {
         viewModelScope.launch {
             marsUiState = MarsUiState.Loading
             marsUiState = try {

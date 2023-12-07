@@ -34,7 +34,7 @@ import com.example.affirmations.model.MarsPhoto
 
 @Composable
 fun MarsPictureScreen(
-    marsUiState: MarsUiState, modifier: Modifier = Modifier
+    marsUiState: MarsUiState, retryAction: () -> Unit, modifier: Modifier = Modifier
 ) {
     when (marsUiState) {
         is MarsUiState.Loading -> {
@@ -49,7 +49,7 @@ fun MarsPictureScreen(
 
         is MarsUiState.Error -> {
             //error
-            ErrorScreen(modifier = modifier.fillMaxSize())
+            ErrorScreen(retryAction, modifier = modifier.fillMaxSize())
         }
     }
 }
@@ -97,7 +97,7 @@ fun MarsPhotoCard(photo: MarsPhoto, modifier: Modifier = Modifier) {
 
 
 @Composable
-fun ErrorScreen(modifier: Modifier = Modifier) {
+fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -107,6 +107,10 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
             painter = painterResource(id = R.drawable.ic_connection_error), contentDescription = ""
         )
         Text(text = stringResource(R.string.loading_failed), modifier = Modifier.padding(16.dp))
+
+        Button(onClick = retryAction) {
+            Text(stringResource(R.string.retry))
+        }
 
 
     }
