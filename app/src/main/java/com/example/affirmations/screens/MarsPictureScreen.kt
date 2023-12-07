@@ -19,7 +19,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.affirmations.ui.APODViewModel
 import com.example.affirmations.ui.MarsUiState
 import androidx.compose.material3.Text
 import androidx.compose.ui.layout.ContentScale
@@ -51,8 +50,11 @@ fun MarsPictureScreen(
             //error
             ErrorScreen(retryAction, modifier = modifier.fillMaxSize())
         }
+
+        else -> {}
     }
 }
+
 
 @Composable
 fun PhotosGridScreen(photos: List<MarsPhoto>, modifier: Modifier = Modifier) {

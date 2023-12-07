@@ -1,5 +1,5 @@
 package com.example.marsphotos
-import com.example.affirmations.ui.APODViewModel
+import com.example.affirmations.ui.MarsViewModel
 import com.example.affirmations.ui.MarsUiState
 import com.example.fake.FakeDataSource
 import com.example.fake.FakeNetworkMarsPhotosRepository
@@ -15,7 +15,7 @@ class MarsViewModelTest {
     val testDispatcher = TestDispatcherRule()
     @Test
     fun marsViewModel_getMarsPhotos_verifyMarsUiStateSuccess() = runTest{
-        val marsViewModel = APODViewModel(marsPhotoRepository = FakeNetworkMarsPhotosRepository()
+        val marsViewModel = MarsViewModel(marsPhotoRepository = FakeNetworkMarsPhotosRepository()
         )
         assertEquals(MarsUiState.Success(FakeDataSource.photosList),
             marsViewModel.marsUiState)
