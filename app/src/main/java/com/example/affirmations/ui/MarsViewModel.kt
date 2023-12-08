@@ -10,12 +10,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.affirmations.NasaApplication
-import com.example.affirmations.data.Datasource
 import com.example.affirmations.data.MarsPhotoRepository
 import com.example.affirmations.model.MarsPhoto
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -28,29 +24,14 @@ sealed interface MarsUiState {
 }
 
 class MarsViewModel(private val marsPhotoRepository: MarsPhotoRepository) : ViewModel() {
-    // Initialize your data here
-    private val _uiState = MutableStateFlow(APODState())
-    val uiState: StateFlow<APODState> = _uiState.asStateFlow()
-    //State for the web service
 
     var marsUiState: MarsUiState by mutableStateOf(MarsUiState.Loading)
         private set
 
     init {
-        loadAPODs()
         getMarsImages()
     }
 
-    //Function to load the apods from the mockData
-    private fun loadAPODs() {
-        viewModelScope.launch {
-            // Emit loading state
-            _uiState.value = APODState(isLoading = true)
-
-                val apodsList = Datasource().loadAPODS()
-                _uiState.value = APODState(apods = apodsList, isLoading = false)
-        }
-    }
 
     //Function to get the mars images (with API call)
     fun getMarsImages() {

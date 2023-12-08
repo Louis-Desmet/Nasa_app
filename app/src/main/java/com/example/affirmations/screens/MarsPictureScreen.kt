@@ -51,7 +51,6 @@ fun MarsPictureScreen(
             ErrorScreen(retryAction, modifier = modifier.fillMaxSize())
         }
 
-        else -> {}
     }
 }
 

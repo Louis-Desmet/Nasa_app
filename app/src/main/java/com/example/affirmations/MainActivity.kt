@@ -16,8 +16,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.affirmations.screens.APODCardPreview
+import com.example.affirmations.screens.APODScreen
 import com.example.affirmations.screens.MarsPictureScreen
+import com.example.affirmations.ui.APODViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -27,7 +28,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             AffirmationsTheme {
                 val navController = rememberNavController()
-                val viewModel: MarsViewModel by viewModels { MarsViewModel.Factory }
+                val viewModelMars: MarsViewModel by viewModels { MarsViewModel.Factory }
+                val apodViewModel: APODViewModel by viewModels {APODViewModel.Factory}
                 Scaffold(
                     bottomBar = { BottomBar(navController) }
                 ) { innerPadding ->
@@ -38,12 +40,14 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(Destinations.MarsPictureScreen) {
                             MarsPictureScreen(
-                            marsUiState = viewModel.marsUiState, retryAction = viewModel::getMarsImages
+                            marsUiState = viewModelMars.marsUiState, retryAction = viewModelMars::getMarsImages
                             )
                         }
                         composable(Destinations.APODScreen) {
                             //HelloWorldScreen()
-                            APODCardPreview()
+                            APODScreen(
+                                apodUiState =  apodViewModel.apodUiState, retryAction = apodViewModel::getAPOD
+                            )
                         }
                     }
                 }

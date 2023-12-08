@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,6 +27,10 @@ import com.example.affirmations.R
 import com.example.affirmations.model.APOD
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
+import com.example.affirmations.ui.APODViewModel
+import com.example.affirmations.ui.APODuiState
 import com.example.affirmations.ui.MarsViewModel
 
 @Composable
@@ -36,42 +41,44 @@ fun HelloWorldScreen() {
 }
 
 @Composable
+fun APODScreen(
+    apodUiState: APODuiState, retryAction: () -> Unit, modifier: Modifier = Modifier
+) {
+    when (apodUiState) {
+        is APODuiState.Loading -> {
+            LoadingScreen(modifier = modifier.fillMaxSize())
+        }
+        is APODuiState.Error -> {
+            ErrorScreen(retryAction, modifier = modifier.fillMaxSize())
+        }
+        is APODuiState.Success -> {
+            val apod = apodUiState.apod
+            APODCard(apod)
+        }
+    }
+}
+
+@Composable
 fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
-    Card(modifier = modifier) {
-        Column {
+    Card(modifier = modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            // Image
             Image(
-                painter = painterResource(apod.imageResourceId),
-                contentDescription = stringResource(
-                    apod.stringResourceId
-                ),
+                painter = rememberAsyncImagePainter(model = apod.url),
+                contentDescription = apod.title,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(194.dp), contentScale = ContentScale.Crop
+                    .aspectRatio(16f / 9f),
+                contentScale = ContentScale.Crop
             )
-            Text(
-                text = LocalContext.current.getString(apod.stringResourceId),
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.headlineSmall
-            )
-
+            // Title
+            Text(text = apod.title, style = MaterialTheme.typography.headlineLarge)
+            // Description
+            Text(text = apod.explanation, style = MaterialTheme.typography.bodyMedium)
+            // Photographer/Copyright
+            Text(text = "© ${apod.copyright}", style = MaterialTheme.typography.labelSmall)
         }
     }
 }
 
-
-@Composable
-fun APODCardPreview() {
-    APODCard(APOD(R.string.affirmation1, R.drawable.nasa1))
-}
-
-@Composable
-fun APODList( modifier: Modifier = Modifier, viewmodel: MarsViewModel = viewModel()) {
-    val APODState by viewmodel.uiState.collectAsState()
-    LazyColumn(modifier = modifier) {
-        items(APODState.apods) { apod ->
-            APODCard(apod = apod, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding)))
-
-        }
-    }
-}
 
