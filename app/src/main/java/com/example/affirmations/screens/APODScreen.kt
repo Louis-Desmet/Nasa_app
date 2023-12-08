@@ -62,7 +62,7 @@ fun APODScreen(
 
 @Composable
 fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
-    Card(modifier = modifier.padding(16.dp)) {
+
         Column(
             modifier = Modifier
                 .padding(16.dp)
@@ -84,7 +84,7 @@ fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
             // Photographer/Copyright
             Text(text = "© ${apod.copyright}", style = MaterialTheme.typography.labelSmall)
         }
-    }
+
 }
 
 
