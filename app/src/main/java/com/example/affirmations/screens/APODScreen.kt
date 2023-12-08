@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -61,7 +63,11 @@ fun APODScreen(
 @Composable
 fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
     Card(modifier = modifier.padding(16.dp)) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             // Image
             Image(
                 painter = rememberAsyncImagePainter(model = apod.url),
@@ -80,5 +86,6 @@ fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
         }
     }
 }
+
 
 
