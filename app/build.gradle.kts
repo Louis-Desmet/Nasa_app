@@ -82,6 +82,8 @@ dependencies {
         // ViewModel support for Compose
         implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
 
+        implementation("androidx.appcompat:appcompat:1.6.1")
+
         // Testing dependencies
         debugImplementation("androidx.compose.ui:ui-test-manifest")
         debugImplementation("androidx.compose.ui:ui-tooling")

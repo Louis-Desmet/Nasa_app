@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,15 +42,28 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable(Destinations.MarsPictureScreen) {
-                            MarsPictureScreen(
-                            marsUiState = viewModelMars.marsUiState, retryAction = viewModelMars::getMarsImages
-                            )
+                            AnimatedVisibility(
+                                visible = true,
+                                enter = fadeIn(),
+                                exit = fadeOut()
+                            ) {
+                                MarsPictureScreen(
+                                    marsUiState = viewModelMars.marsUiState,
+                                    retryAction = viewModelMars::getMarsImages
+                                )
+                            }
                         }
                         composable(Destinations.APODScreen) {
+                            AnimatedVisibility(
+                                visible = true,
+                                enter = fadeIn(),
+                                exit = fadeOut()
+                            ) {
                             //HelloWorldScreen()
                             APODScreen(
                                 apodUiState =  apodViewModel.apodUiState, retryAction = apodViewModel::getAPOD
                             )
+                        }
                         }
                     }
                 }
