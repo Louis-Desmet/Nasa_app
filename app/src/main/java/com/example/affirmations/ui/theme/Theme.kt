@@ -29,23 +29,32 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import androidx.compose.material3.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 
-private val DarkColorScheme = darkColorScheme(
-    surfaceVariant = md_theme_dark_surfaceVariant,
-    onSurfaceVariant = md_theme_dark_onSurfaceVariant,
-    background = md_theme_dark_background
+// Define your space-themed colors here
+private val SpaceDarkColorScheme = darkColorScheme(
+    primary = Color(0xFF1A237E), // Dark blue, like the night sky
+    onPrimary = Color(0xFFCE93D8), // Light purple, for elements on primary surfaces
+    primaryContainer = Color(0xFF0D47A1), // A slightly different dark blue for containers
+    onPrimaryContainer = Color(0xFFB39DDB), // Light purple for text/icons on primary containers
+    secondary = Color(0xFF7C4DFF), // A vibrant color for accents, like a distant nebula
+    onSecondary = Color(0xFFFFFFFF), // White for elements on secondary surfaces
+    background = Color(0xFF000000), // True black for the background
+    onBackground = Color(0xFFFFFFFF), // White for text/icons on the background
+    surface = Color(0xFF121212), // Dark grey for card backgrounds and other surfaces
+    onSurface = Color(0xFFE0E0E0) // Light grey for text/icons on surfaces
 )
 
-private val LightColorScheme = lightColorScheme(
-    surfaceVariant = md_theme_light_surfaceVariant,
-    onSurfaceVariant = md_theme_light_onSurfaceVariant,
-    background = md_theme_light_background
+// You can define a light color scheme too if you want a different look for light theme
+private val SpaceLightColorScheme = lightColorScheme(
+    // Define light theme colors here, possibly with a dark blue background and light accents
 )
 
 @Composable
 fun AffirmationsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+, turned off for training purposes
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
@@ -54,17 +63,17 @@ fun AffirmationsTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> SpaceDarkColorScheme
+        else -> SpaceLightColorScheme // Or LightColorScheme if you haven't defined a light space theme
     }
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.background.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = colorScheme.background.luminance() > 0.5
         }
+
     }
 
     MaterialTheme(
@@ -72,3 +81,21 @@ fun AffirmationsTheme(
         content = content
     )
 }
+
+@Composable
+fun Testtheme(
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit
+) {
+    val colors = if (!useDarkTheme) {
+        SpaceLightColorScheme
+    } else {
+        SpaceDarkColorScheme
+    }
+
+    MaterialTheme(
+        colorScheme = colors,
+        content = content
+    )
+}
+
