@@ -67,6 +67,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.room:room-common:2.6.1")
     dependencies {
         // Compose dependencies using the BoM for consistent versions
         implementation("androidx.navigation:navigation-compose:2.4.1")
