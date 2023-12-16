@@ -15,5 +15,5 @@ interface MarsImgDao {
     fun getAllItems(): Flow<List<DbMarsImg>>
 
     @Query("SELECT * from marsImages where id = :id")
-    fun getItem(id: Int): Flow<DbMarsImg>
+    fun getItem(id: String): Flow<DbMarsImg>
 }

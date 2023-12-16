@@ -16,9 +16,6 @@ data class DbMarsImg(
 
 fun MarsPhoto.asDbMarsImg() = DbMarsImg(imgSrc = imgSrc, id = id)
 
-fun List<DbMarsImg>.asDomainMarsImage(): List<MarsPhoto> {
-    var list = this.map {
-        MarsPhoto(it.id, it.imgSrc)
-    }
-    return list
-}
+fun DbMarsImg.asDomainMarsImage() = MarsPhoto(imgSrc = imgSrc, id=id )
+fun List<DbMarsImg>.asDomainMarsImages() = map { it.asDomainMarsImage() }
+
