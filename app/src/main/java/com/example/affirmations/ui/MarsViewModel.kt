@@ -12,13 +12,18 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.affirmations.NasaApplication
 import com.example.affirmations.data.MarsPhotoRepository
 import com.example.affirmations.model.MarsPhoto
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
 
 sealed interface MarsUiState {
-    data class Success(val photos: List<MarsPhoto>) : MarsUiState
+    object Success: MarsUiState
     object Error : MarsUiState
     object Loading : MarsUiState
 }
@@ -27,6 +32,15 @@ class MarsViewModel(private val marsPhotoRepository: MarsPhotoRepository) : View
 
     var marsUiState: MarsUiState by mutableStateOf(MarsUiState.Loading)
         private set
+
+    private val _uiListState = MutableStateFlow<List<MarsPhoto>>(emptyList())
+    val uiListState: StateFlow<List<MarsPhoto>> = marsPhotoRepository.getMarsPhotos()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = emptyList()
+        )
+
 
     init {
         getMarsImages()
@@ -37,16 +51,16 @@ class MarsViewModel(private val marsPhotoRepository: MarsPhotoRepository) : View
     fun getMarsImages() {
         viewModelScope.launch {
             marsUiState = MarsUiState.Loading
-            marsUiState = try {
-                MarsUiState.Success(marsPhotoRepository.getMarsPhotos())
+            try {
+                marsPhotoRepository.refresh()
+                marsUiState = MarsUiState.Success
 
             } catch (e: IOException) {
-                MarsUiState.Error
+                marsUiState = MarsUiState.Error
             } catch (e: HttpException) {
-                MarsUiState.Error
+                marsUiState = MarsUiState.Error
             }
         }
-
     }
 
     companion object {

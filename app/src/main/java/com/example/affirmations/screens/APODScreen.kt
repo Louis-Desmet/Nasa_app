@@ -50,9 +50,11 @@ fun APODScreen(
         is APODuiState.Loading -> {
             LoadingScreen(modifier = modifier.fillMaxSize())
         }
+
         is APODuiState.Error -> {
             ErrorScreen(retryAction, modifier = modifier.fillMaxSize())
         }
+
         is APODuiState.Success -> {
             val apod = apodUiState.apod
             APODCard(apod)
@@ -62,29 +64,29 @@ fun APODScreen(
 
 @Composable
 fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
-
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState())
-        ) {
-            // Image
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .verticalScroll(rememberScrollState())
+    ) {
+        apod.url?.let {
             Image(
-                painter = rememberAsyncImagePainter(model = apod.url),
+                painter = rememberAsyncImagePainter(model = it),
                 contentDescription = apod.title,
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(16f / 9f),
                 contentScale = ContentScale.Crop
             )
-            // Title
-            Text(text = apod.title, style = MaterialTheme.typography.headlineLarge)
-            // Description
-            Text(text = apod.explanation, style = MaterialTheme.typography.bodyMedium)
-            // Photographer/Copyright
-            Text(text = "© ${apod.copyright}", style = MaterialTheme.typography.labelSmall)
         }
-
+        apod.title?.let {
+            Text(text = it, style = MaterialTheme.typography.headlineLarge)
+        }
+        apod.explanation?.let {
+            Text(text = it, style = MaterialTheme.typography.bodyMedium)
+        }
+        // Continue for other fields...
+    }
 }
 
 

@@ -21,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.affirmations.ui.MarsUiState
 import androidx.compose.material3.Text
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -30,11 +32,15 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.affirmations.R
 import com.example.affirmations.model.MarsPhoto
+import com.example.affirmations.ui.MarsViewModel
 
 @Composable
 fun MarsPictureScreen(
-    marsUiState: MarsUiState, retryAction: () -> Unit, modifier: Modifier = Modifier
+    marsUiState: MarsUiState, retryAction: () -> Unit, modifier: Modifier = Modifier, viewModel: MarsViewModel
 ) {
+
+    val photos by viewModel.uiListState.collectAsState()
+
     when (marsUiState) {
         is MarsUiState.Loading -> {
             LoadingScreen(modifier = modifier.fillMaxSize())
@@ -43,7 +49,7 @@ fun MarsPictureScreen(
         is MarsUiState.Success -> {
             //ResultScreen(marsUiState.photos, modifier.fillMaxWidth())
             //MarsPhotoCard(photo = marsUiState.photos, modifier = modifier)
-            PhotosGridScreen(photos = marsUiState.photos, modifier)
+            PhotosGridScreen(photos = photos, modifier)
         }
 
         is MarsUiState.Error -> {

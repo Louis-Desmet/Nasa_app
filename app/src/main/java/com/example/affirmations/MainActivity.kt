@@ -49,6 +49,7 @@ class MainActivity : ComponentActivity() {
                                 exit = fadeOut()
                             ) {
                                 MarsPictureScreen(
+                                    viewModel = viewModelMars,
                                     marsUiState = viewModelMars.marsUiState,
                                     retryAction = viewModelMars::getMarsImages
                                 )

@@ -1,5 +1,9 @@
 package com.example.affirmations.data
 
+import android.content.Context
+import androidx.room.Room
+import com.example.affirmations.data.database.MarsImgDao
+import com.example.affirmations.data.database.MarsImgDatabase
 import com.example.affirmations.network.APODApiService
 import com.example.affirmations.network.MarsApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -12,7 +16,8 @@ interface AppContainer {
     val apodRepository: APODRepository
 }
 
-class DefaultAppContainer : AppContainer {
+class DefaultAppContainer(
+    private val applicationContext: Context) : AppContainer {
     private val marsBaseUrl =
         "https://android-kotlin-fun-mars-server.appspot.com"
 
@@ -25,8 +30,16 @@ class DefaultAppContainer : AppContainer {
         retrofit.create(MarsApiService::class.java)
     }
 
+   private val marsImgDb: MarsImgDatabase by lazy {
+       Room.databaseBuilder(applicationContext, MarsImgDatabase::class.java, "marsImg_database").build()
+   }
+    private val marsImgDao: MarsImgDao by lazy {
+        marsImgDb.MarsImgDao()
+    }
+
     override val marsPhotoRepository: MarsPhotoRepository by lazy {
-        NetworkMarsPhotoRepository(retrofitService)
+        //NetworkMarsPhotoRepository(retrofitService)
+        CachingMarsPhotoRepository(marsImgDao = marsImgDao, marsApiService = retrofitService)
     }
 
     //---
