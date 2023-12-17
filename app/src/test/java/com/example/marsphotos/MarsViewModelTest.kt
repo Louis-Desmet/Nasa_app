@@ -18,7 +18,6 @@ class MarsViewModelTest {
     fun marsViewModel_getMarsPhotos_verifyMarsUiStateSuccess() = runTest {
         val marsViewModel = MarsViewModel(marsPhotoRepository = FakeNetworkMarsPhotosRepository())
 
-        // Ensure that the ViewModel has time to process the coroutine launched in init
         advanceUntilIdle()
 
         assertEquals(MarsUiState.Success, marsViewModel.marsUiState)

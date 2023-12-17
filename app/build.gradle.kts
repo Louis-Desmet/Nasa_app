@@ -56,6 +56,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -74,6 +75,7 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+
     }
 }
 
@@ -127,8 +129,16 @@ android {
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
 
 
-        testImplementation("androidx.compose.ui:ui-test-junit4-android:1.5.1")
-        testImplementation("androidx.navigation:navigation-testing:2.4.1")
+        androidTestImplementation("androidx.compose.ui:ui-test-junit4-android:1.5.1")
+        androidTestImplementation("androidx.navigation:navigation-testing:2.4.1")
+
+        //mockito
+        androidTestImplementation("org.mockito:mockito-android:4.6.1")
+
+        //espresso
+        androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+        //androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.0")
+
 
 
         //implementation("androidx.navigation:navigation-testing:2.6.1")
