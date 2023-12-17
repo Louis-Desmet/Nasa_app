@@ -49,7 +49,7 @@ class CachingMarsPhotoRepository(
         override suspend fun refresh() {
             marsApiService.getMarsImagesAsFlow().collect {
                 for (marsImage in it) {
-                    Log.i("TEST","refresh: $marsImage")
+                    //Log.i("TEST","refresh: $marsImage")
                     insert(marsImage)
                 }
             }

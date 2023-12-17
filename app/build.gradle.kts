@@ -79,6 +79,7 @@ android {
 
 
     dependencies {
+
         //room
         //room
         //room
@@ -124,6 +125,13 @@ android {
         //local tests
         testImplementation("junit:junit:4.13.2")
         testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+
+
+        testImplementation("androidx.compose.ui:ui-test-junit4-android:1.5.1")
+        testImplementation("androidx.navigation:navigation-testing:2.4.1")
+
+
+        //implementation("androidx.navigation:navigation-testing:2.6.1")
 
         // Coil (display images)
         implementation("io.coil-kt:coil-compose:2.4.0")
