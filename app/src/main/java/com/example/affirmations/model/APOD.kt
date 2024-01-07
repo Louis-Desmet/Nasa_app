@@ -4,6 +4,18 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import kotlinx.serialization.Serializable
 
+/**
+ * Represents an Astronomy Picture of the Day (APOD) data model.
+ *
+ * @property title The title of the APOD.
+ * @property explanation A description or explanation of the APOD.
+ * @property url The URL of the APOD image.
+ * @property hdurl The URL of the high-definition version of the APOD image.
+ * @property copyright The copyright information of the APOD.
+ * @property date The date of the APOD.
+ * @property media_type The type of media (e.g., image, video) of the APOD.
+ * @property service_version The version of the APOD service used.
+ */
 @Serializable
 data class APOD(
     val title: String? = null,
@@ -15,4 +27,3 @@ data class APOD(
     val media_type: String? = null,
     val service_version: String? = null
 )
-
