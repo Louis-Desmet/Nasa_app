@@ -1,28 +1,19 @@
 package com.example.affirmations.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import com.example.affirmations.ui.MarsUiState
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -33,13 +24,22 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.affirmations.R
 import com.example.affirmations.model.MarsPhoto
+import com.example.affirmations.ui.MarsUiState
 import com.example.affirmations.ui.MarsViewModel
 
+/**
+ * Composable function to display the Mars Picture Screen.
+ * It manages different UI states such as loading, success, and error.
+ *
+ * @param marsUiState The current state of the Mars UI.
+ * @param retryAction Action to perform on retry.
+ * @param modifier Modifier for this composable.
+ * @param viewModel ViewModel to manage the UI state.
+ */
 @Composable
 fun MarsPictureScreen(
     marsUiState: MarsUiState, retryAction: () -> Unit, modifier: Modifier = Modifier, viewModel: MarsViewModel
 ) {
-
     val photos by viewModel.uiListState.collectAsState()
 
     when (marsUiState) {
@@ -48,20 +48,21 @@ fun MarsPictureScreen(
         }
 
         is MarsUiState.Success -> {
-            //ResultScreen(marsUiState.photos, modifier.fillMaxWidth())
-            //MarsPhotoCard(photo = marsUiState.photos, modifier = modifier)
             PhotosGridScreen(photos = photos, modifier)
         }
 
         is MarsUiState.Error -> {
-            //error
             ErrorScreen(retryAction, modifier = modifier.fillMaxSize())
         }
-
     }
 }
 
-
+/**
+ * Composable function to display a grid of Mars photos.
+ *
+ * @param photos List of MarsPhoto to be displayed.
+ * @param modifier Modifier for this composable.
+ */
 @Composable
 fun PhotosGridScreen(photos: List<MarsPhoto>, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
@@ -81,6 +82,12 @@ fun PhotosGridScreen(photos: List<MarsPhoto>, modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Composable function to display a single Mars photo card.
+ *
+ * @param photo MarsPhoto to be displayed.
+ * @param modifier Modifier for this composable.
+ */
 @Composable
 fun MarsPhotoCard(photo: MarsPhoto, modifier: Modifier = Modifier) {
     Card(
@@ -99,10 +106,14 @@ fun MarsPhotoCard(photo: MarsPhoto, modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         )
     }
-
 }
 
-
+/**
+ * Composable function to display an error screen.
+ *
+ * @param retryAction Action to perform on retry.
+ * @param modifier Modifier for this composable.
+ */
 @Composable
 fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
     Column(
@@ -114,16 +125,18 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
             painter = painterResource(id = R.drawable.ic_connection_error), contentDescription = ""
         )
         Text(text = stringResource(R.string.loading_failed), modifier = Modifier.padding(16.dp))
-
         Button(onClick = retryAction) {
             Text(stringResource(R.string.retry))
         }
-
-
     }
 }
 
-    @Composable
+/**
+ * Composable function to display a loading screen.
+ *
+ * @param modifier Modifier for this composable.
+ */
+@Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
     Image(
         modifier = modifier.size(200.dp).testTag("LoadingImage"),

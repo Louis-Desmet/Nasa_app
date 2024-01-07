@@ -51,7 +51,14 @@ private val SpaceDarkColorScheme = darkColorScheme(
 private val SpaceLightColorScheme = lightColorScheme(
     // Define light theme colors here, possibly with a dark blue background and light accents
 )
-
+/**
+ * Composable function to apply the Affirmations theme.
+ * Supports dynamic color schemes based on system settings.
+ *
+ * @param darkTheme Boolean value to determine if dark theme should be used.
+ * @param dynamicColor Boolean value to enable dynamic color theming.
+ * @param content Composable content that will utilize this theme.
+ */
 @Composable
 fun AffirmationsTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -81,7 +88,12 @@ fun AffirmationsTheme(
         content = content
     )
 }
-
+/**
+ * Alternative theme composable for testing purposes.
+ *
+ * @param useDarkTheme Boolean value to determine if dark theme should be used.
+ * @param content Composable content that will utilize this theme.
+ */
 @Composable
 fun Testtheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),

@@ -1,4 +1,5 @@
 package com.example.affirmations.ui
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -10,30 +11,40 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.affirmations.NasaApplication
 import com.example.affirmations.data.APODRepository
 import com.example.affirmations.model.APOD
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
+/**
+ * Sealed interface representing the different states of the APOD UI.
+ */
 sealed interface APODuiState {
     data class Success(val apod: APOD) : APODuiState
     object Error : APODuiState
     object Loading : APODuiState
 }
 
+/**
+ * ViewModel for managing the APOD (Astronomy Picture of the Day) UI state.
+ *
+ * @property apodRepository Repository for fetching APOD data.
+ */
 class APODViewModel(private val apodRepository: APODRepository) : ViewModel() {
 
-    //private val _uiState = MutableStateFlow<APODuiState>(APODuiState.Loading)
-
+    /**
+     * The current UI state of the APOD screen.
+     * Can be [APODuiState.Success], [APODuiState.Error], or [APODuiState.Loading].
+     */
     var apodUiState: APODuiState by mutableStateOf(APODuiState.Loading)
-    private set
+        private set
 
     init {
         getAPOD()
     }
 
+    /**
+     * Fetches the Astronomy Picture of the Day and updates the UI state accordingly.
+     */
     fun getAPOD() {
         viewModelScope.launch {
             apodUiState = APODuiState.Loading
@@ -49,6 +60,9 @@ class APODViewModel(private val apodRepository: APODRepository) : ViewModel() {
     }
 
     companion object {
+        /**
+         * Factory for creating instances of [APODViewModel].
+         */
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as NasaApplication)
@@ -58,5 +72,3 @@ class APODViewModel(private val apodRepository: APODRepository) : ViewModel() {
         }
     }
 }
-
-

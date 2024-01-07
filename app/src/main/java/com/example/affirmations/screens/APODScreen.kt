@@ -7,7 +7,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -35,6 +34,9 @@ import com.example.affirmations.ui.APODViewModel
 import com.example.affirmations.ui.APODuiState
 import com.example.affirmations.ui.MarsViewModel
 
+/**
+ * Composable function to display a simple "Hello World" screen.
+ */
 @Composable
 fun HelloWorldScreen() {
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
@@ -42,6 +44,14 @@ fun HelloWorldScreen() {
     }
 }
 
+/**
+ * Composable function to display the APOD (Astronomy Picture of the Day) screen.
+ * It switches between different UI states like loading, success, and error.
+ *
+ * @param apodUiState The current state of the APOD UI.
+ * @param retryAction Action to perform on retry.
+ * @param modifier Modifier for this composable.
+ */
 @Composable
 fun APODScreen(
     apodUiState: APODuiState, retryAction: () -> Unit, modifier: Modifier = Modifier
@@ -62,6 +72,12 @@ fun APODScreen(
     }
 }
 
+/**
+ * Composable function to display a card with details of an APOD item.
+ *
+ * @param apod The APOD item to display.
+ * @param modifier Modifier for this composable.
+ */
 @Composable
 fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
     Column(
@@ -88,6 +104,3 @@ fun APODCard(apod: APOD, modifier: Modifier = Modifier) {
         // Continue for other fields...
     }
 }
-
-
-

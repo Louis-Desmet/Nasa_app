@@ -23,7 +23,13 @@ import com.example.affirmations.screens.APODScreen
 import com.example.affirmations.screens.MarsPictureScreen
 import com.example.affirmations.ui.APODViewModel
 import com.example.affirmations.ui.MarsViewModel
-
+/**
+ * Composable function that sets up the navigation for the NASA app.
+ *
+ * @param viewModelMars ViewModel for Mars pictures screen.
+ * @param apodViewModel ViewModel for APOD screen.
+ * @param navController Navigation controller for managing app navigation.
+ */
 @Composable
 fun NasaApp(
     viewModelMars: MarsViewModel,
@@ -68,7 +74,11 @@ fun NasaApp(
     }
 
 }
-
+/**
+ * Composable function for the bottom navigation bar.
+ *
+ * @param navController Controller for navigation between screens.
+ */
 @Composable
 fun BottomBar(navController: NavController) {
     BottomAppBar {
