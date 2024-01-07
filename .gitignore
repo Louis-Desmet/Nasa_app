@@ -19,6 +19,9 @@ gen/
 .gradle/
 build/
 
+# But do not ignore the Dokka HTML documentation
+!build/dokka/html/
+
 # Local configuration file (sdk path, etc)
 local.properties
 

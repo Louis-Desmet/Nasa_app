@@ -29,6 +29,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
     id("com.google.devtools.ksp")
+    id("org.jetbrains.dokka")
 }
 
 android {
@@ -111,6 +112,9 @@ android {
         implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
 
         implementation("androidx.appcompat:appcompat:1.6.1")
+
+        //dokka
+        //implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.4.30")
 
         // Testing dependencies
         debugImplementation("androidx.compose.ui:ui-test-manifest")
