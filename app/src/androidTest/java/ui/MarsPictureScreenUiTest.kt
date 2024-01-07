@@ -51,7 +51,7 @@ class MarsPictureScreenTest {
         // Create a mock ViewModel with the mocked repository
         val viewModel = MarsViewModel(marsPhotoRepository = mockRepository)
 
-        // Set up the UI content for the test
+
         composeTestRule.setContent {
             PhotosGridScreen(photos = mockPhotos, modifier = Modifier.fillMaxWidth())
         }
@@ -68,7 +68,7 @@ class MarsPictureScreenTest {
             ErrorScreen(retryAction = {}, modifier = Modifier.fillMaxSize())
         }
 
-        // Check if the retry button is displayed
+        // Check if the retry button
         composeTestRule.onNodeWithText("Retry").assertIsDisplayed()
     }
 }
